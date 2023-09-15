@@ -15,7 +15,9 @@ import config from "./config/index.js";
     await mongoose.connect(config.MONGO_URL);
     console.log("DB CONNECTED");
 
-    // checking connection betweeen express and DB
+    // checking connection betweeen express and DB (app is instance of express)
+    // here - error is name of event
+    // before listening we need to check express is connected with DB
     app.on("error", (err) => {
       console.log("ERROR: ", err);
       throw err;

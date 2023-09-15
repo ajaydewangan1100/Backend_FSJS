@@ -27,5 +27,67 @@
 
 6. check express is connected with mongoDB -
 
+- > goto site - *http://expressjs.com/en/5x/api.html#app.onmount*
+- > [coded - src/index.js](src/index.js)
+
+```
+app.on("error", (err) => {
+    console.log("ERROR: ", err);
+    throw err;
+});
+
+// listening here
+const onListening = () => {
+    console.log("Listening on port ", process.env.PORT);
+};
+
+app.listen(process.env.PORT, onListening);
+```
+
+7. create _.env_ -> for envirnment variables -
+
+   > check .env
+
+8. create _/src/config/index.js_ -> for configuration in one place and export that so we can use it anywhere on our project -
+
+   > [Goto - src/config/index.js](src/config/index.js)
+
+9. create _/src/utils/AuthRoles.js_ -> for user roles which we can access from anywhere
+
+   > [goto - src/utils/AuthRoles.js](src/utils/authRoles.js)
+
+10. create _/src/models/collection.schema.js_ -> for collection schema
+
+    > [go to - /src/models/collection.schema.js](src/models/collection.schema.js)
+
+11. create _/src/models/user.schema.js_ -> for **user schema**
+
+    > [goto - /src/models/user.schema.js](src/models/user.schema.js)
+
+12. encryption of password - install **bcryptjs** for encryption purpose -
+
+- > [goto - npm bcrypt](https://www.npmjs.com/package/bcryptjs)
+- > [go to code - src/models/user.schema.js](src/models/user.schema.js)
+
+```
+import bcrypt from "bcryptjs";
+..
+..
+userSchema.pre("save", async function (params) {
+  if (this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next()
+});
+```
+
+13. Provide methods - for checking or updating things under DB before update or after update ->
+> [goto site for schema.prototype](https://mongoosejs.com/docs/api/schema.html#Schema.prototype.method())
+- 1 Comparing password -
+
+```
+comparePassword: async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+  }
+```
 
 -

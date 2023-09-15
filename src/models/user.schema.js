@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import AuthRoles from "../utils/authRoles";
+import bcrypt from "bcryptjs";
 
 const userSchema = new Schema.Schema(
   {
@@ -32,3 +33,18 @@ const userSchema = new Schema.Schema(
 export default mongoose.model("User", userSchema);
 
 // here encrypt the password before saving -> hooks
+// this will run just before saving user and runs only first time at the time of saving the user details
+// attaching here hook to userSchema to perform action
+userSchema.pre("save", async function (params) {
+  if (this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+// methods for checking or updating things under DB before update or after update
+userSchema.methods = {
+  // compare password
+  comparePassword: async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+  },
+};
