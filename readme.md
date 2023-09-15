@@ -81,13 +81,43 @@ userSchema.pre("save", async function (params) {
 ```
 
 13. Provide methods - for checking or updating things under DB before update or after update ->
-> [goto site for schema.prototype](https://mongoosejs.com/docs/api/schema.html#Schema.prototype.method())
-- 1 Comparing password -
+    > [goto site for schema.prototype](<https://mongoosejs.com/docs/api/schema.html#Schema.prototype.method()>)
+
+- Comparing password -
 
 ```
 comparePassword: async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
   }
+```
+
+14. Now we need to generate token if all things correct and password matched ->
+    - > [goto - jsonwebtoken npm](https://www.npmjs.com/package/jsonwebtoken)
+    - > Usage read docs - `jwt.sign(payload, secretOrPrivateKey, [options, callback])`
+
+- add to _.env_
+
+```
+JWT_SECRET=mysecret
+JWT_EXPIRY=7d
+```
+
+- update _src/config/index.js_ we need to use this values -
+
+```
+JWT_SECRET: process.env.JWT_SECRET || "mysecret",
+JWT_EXPIRY: process.env.JWT_EXPIRY || "10d",
+```
+
+- update _src/models/user.schema.js_ add method for JWT -
+
+```
+import JWT from "jsonwebtoken"
+import config from "../config/index"
+import crypto from "crypto";
+...
+...
+
 ```
 
 -
