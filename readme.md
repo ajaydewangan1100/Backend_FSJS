@@ -159,5 +159,9 @@ return forgotToken;
 
 **note** - there is multiple websites for make models(they can be paid) like - moon modeler (datensen.com)
 
-17. 
+17. Create coupon schema -
+    > [goto file - src/models/coupon.schema.js](src/models/coupon.schema.js)
+
+    18. 
+
 -
