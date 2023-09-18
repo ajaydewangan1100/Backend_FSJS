@@ -160,8 +160,61 @@ return forgotToken;
 **note** - there is multiple websites for make models(they can be paid) like - moon modeler (datensen.com)
 
 17. Create coupon schema -
+
     > [goto file - src/models/coupon.schema.js](src/models/coupon.schema.js)
 
-    18. 
+18. Create asynchandler - which is an HOF with try catch(for run to all DB things) -
+    > [goto file - src/service/asyncHandler.js](src/service/asyncHandler.js)
+
+```
+const asyncHandler = (fn) => async (req, res, next) => {
+  try {
+    await fn(req, res, next);
+  } catch (error) {
+    res.status(error.code || 500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export default asyncHandler;
+```
+
+19. Added function for customError -
+
+    > [got file - src/utils/customError.js](src/utils/customError.js)
+
+20. we need to configure express for different methods and data to use -
+    > [goto - src/app.js](src/app.js) , because this configurations added under that
+
+- different type of data like - json (this method is given by express)
+  `app.use(express.json());`
+
+- urlEncode method - (for accepting urlencoded data)
+  `app.use(express.urlencoded({ extended: true }));`
+
+- CORS configure - (for cross origin resource sharing)
+
+  > - [goto - CORS-npm](https://www.npmjs.com/package/cors)
+
+- `app.use(cors())`
+
+- cookie parser - with this package we can access users browsers cookies
+
+  > [goto - cookie-parser-npm](https://www.npmjs.com/package/cookie-parser)
+
+- `app.use(cookieParser());`
+
+20. Started Controller methods- **signup** -
+
+    > [goto signup - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
+
+21. 
+
+-
+-
+-
+-
 
 -
