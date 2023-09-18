@@ -206,11 +206,19 @@ export default asyncHandler;
 
 - `app.use(cookieParser());`
 
-20. Started Controller methods- **signup** -
+20. Started Controller methods from here - **signup** -
 
     > [goto signup - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
 
-21. 
+21. **login** -
+
+    > [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
+
+22. **signout** -
+    > [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
+
+23. 
+
 
 -
 -
