@@ -1,5 +1,4 @@
 //
-// Signup user
 
 import asyncHandler from "../service/asyncHandler";
 import CustomError from "../utils/customError";
