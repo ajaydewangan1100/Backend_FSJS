@@ -215,10 +215,40 @@ export default asyncHandler;
     > [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
 
 22. **signout** -
+
     > [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
 
-23. 
+23. **logout** -
 
+    > [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
+
+24. **getProfile** -
+
+    > [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
+
+25. Middlewares - for authentication - isLoggedIn , authorize
+
+    > [goto - src/middlewares/auth.middleware.js](src/middlewares/auth.middleware.js)
+
+26. Controllers for collection - create, update, delete, get, getAll
+
+    > [goto - src/controllers/collection.controler.js](src/controllers/collection.controler.js)
+
+27. Moving for uploading other file types rather than text or json (image, video, pdf etc)
+
+- > [S3 - npm(aws-sdk)](https://www.npmjs.com/package/aws-sdk)
+- > [Coudinary - website](https://cloudinary.com/documentation/node_image_and_video_upload)
+
+28. S3 - configuration (.env s3 secret and bucket added)
+
+- > [s3-config.js](src/config/s3.config.js)
+- > [config updated](src/config/index.js)
+- > [.env added secret and bucket](.env)
+
+29. Create image upload service -
+    > [goto - src/service/imageUpload.js](src/service/imageUpload.js)
+
+30. 
 
 -
 -

@@ -77,16 +77,35 @@ export const deleteCollection = asyncHandler(async (req, res) => {
   });
 });
 
-// getting all collection
-export const getAllCollection = asyncHandler(async (req, res) => {
-  const collection = await Collection.find();
+// getting single collection
+export const getCollection = asyncHandler(async (req, res) => {
+  const { name } = req.body;
+  const { id: collectionId } = req.params;
+
+  const collection = await Collection.findOne({
+    name: name,
+  });
 
   if (!collection) {
-    throw new CustomError("No collection found", 400);
+    throw new CustomError("Not found", 400);
   }
 
   res.status(200).json({
     success: true,
     collection,
+  });
+});
+
+// getting all collection
+export const getAllCollection = asyncHandler(async (req, res) => {
+  const collections = await Collection.find();
+
+  if (!collections) {
+    throw new CustomError("No collection found", 400);
+  }
+
+  res.status(200).json({
+    success: true,
+    collections,
   });
 });
