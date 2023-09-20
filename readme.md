@@ -246,9 +246,20 @@ export default asyncHandler;
 - > [.env added secret and bucket](.env)
 
 29. Create image upload service -
+
     > [goto - src/service/imageUpload.js](src/service/imageUpload.js)
 
-30. 
+30. Now we need a srvice for upload media files _because express not support direct upload_ -
+
+- > [Multer - npm](https://www.npmjs.com/package/multer)
+- > [Formidable - npm](https://www.npmjs.com/package/formidable) - we are using this in this project
+- > [express-fileupload - npm](https://www.npmjs.com/package/express-fileupload)
+
+31. Formidable - files uploader
+
+    > [Formidable - npm](https://www.npmjs.com/package/formidable)
+
+32. 
 
 -
 -
