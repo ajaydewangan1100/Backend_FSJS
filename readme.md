@@ -255,12 +255,23 @@ export default asyncHandler;
 - > [Formidable - npm](https://www.npmjs.com/package/formidable) - we are using this in this project
 - > [express-fileupload - npm](https://www.npmjs.com/package/express-fileupload)
 
-31. Formidable - files uploader
+31. Formidable - files uploader (used in this project)
 
     > [Formidable - npm](https://www.npmjs.com/package/formidable)
 
-32. 
+32. Added product controllers -
 
+    > [goto - product.controller.js](src/controllers/product.controller.js)
+
+33. Method has been added are - addProduct, getAllProducts, getProduct, getProductsByCollectionId, deleteProduct
+
+34. TODO - updateProduct
+
+35. Work on routes -
+
+    > [goto - routes](src/routes)
+
+36. 
 -
 -
 -

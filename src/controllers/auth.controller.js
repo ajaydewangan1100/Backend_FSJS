@@ -17,7 +17,7 @@ const cookieOptions = {
  ******************************************************/
 
 // signup method here -
-export const signup = asyncHandler(async (req, res) => {
+export const signUp = asyncHandler(async (req, res) => {
   // get data from user
   const { name, email, password } = req.body;
 

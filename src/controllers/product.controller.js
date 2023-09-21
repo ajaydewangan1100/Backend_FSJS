@@ -101,7 +101,7 @@ export const getAllProducts = asyncHandler(async (req, res) => {
 });
 
 // getting single products
-export const getProducts = asyncHandler(async (req, res) => {
+export const getProduct = asyncHandler(async (req, res) => {
   const { id: productId } = req.params;
 
   const product = await Product.findById(productId);
@@ -157,17 +157,17 @@ export const deleteProduct = asyncHandler(async (req, res) => {
     })
   );
 
-  await deletePhotos
+  await deletePhotos;
 
-  await Product.remove()
+  await Product.remove();
 
   res.status(200).json({
     success: true,
-    message: "Product has been deleted successfully"
-  })
+    message: "Product has been deleted successfully",
+  });
 });
 
+// TODO ---------------------------------------------------------------------------
 // update Products
 // update product alongwith photo -(if atleast single photo uploaded at update time we need to delete all old photos)
 export const updateProduct = asyncHandler(async (req, res) => {});
-
