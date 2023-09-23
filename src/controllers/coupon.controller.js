@@ -37,9 +37,9 @@ export const createCoupon = asyncHandler(async (req, res) => {
 
 // method get one coupon
 export const getCoupon = asyncHandler(async (req, res) => {
-  const { code } = req.body;
+  const { id: couponId } = req.params;
 
-  const coupon = await Coupon.findOne(code);
+  const coupon = await Coupon.findOne(couponId);
 
   if (!coupon) {
     throw new CustomError("No coupon found with this code", 400);
