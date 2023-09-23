@@ -4,6 +4,8 @@ import asyncHandler from "../service/asyncHandler";
 import CustomError from "../utils/customError";
 import User from "../models/user.schema.js";
 
+import mailHelper from "../utils/mailHelper.js";
+
 const cookieOptions = {
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
   httpOnly: true,
@@ -132,6 +134,96 @@ export const getProfile = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
+    user,
+  });
+});
+
+// method for Forgot Password -
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    throw new CustomError("Email not given", 400);
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new CustomError("User not found", 404);
+  }
+
+  const resetToken = user.generateForgotPasswordToken();
+
+  // validateBeforeSave: false - means it will not check all validation given under schema
+  await user.save({ validateBeforeSave: false });
+
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/auth/password/reset/${resetToken}`;
+
+  const message = `Your password reset token is as follows \n\n ${resetUrl} \n\n if this was not requested by you, please ignore `;
+
+  // now need to send email - (use try catch probably give error because of nodeMailer)
+  try {
+    const options = {};
+    await mailHelper({
+      email: user.email, // we got it from DB
+      subject: "Password reset mail",
+      message,
+    });
+  } catch (error) {
+    // if something wrong we need make cleanup all the things which we set
+    user.forgotPasswordToken = undefined;
+    user.forgotPasswordExpiry = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    // then res error
+    throw new CustomError(error.message || "Email could not be sent", 500);
+  }
+});
+
+// method for reset password
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token: resetToken } = req.params;
+  const { password, confirmPassword } = req.body;
+
+  if (password != confirmPassword) {
+    throw new CustomError("Password does not match");
+  }
+
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    forgotPasswordToken: resetPasswordToken,
+    forgotPasswordExpiry: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    throw new CustomError("Password reset token is invalid or expired", 400);
+  }
+
+  // updating user passwrod
+  user.password = password;
+
+  // now we need to reset again passwordToken and password expiry
+  user.forgotPasswordToken = undefined;
+  user.forgotPasswordExpiry = undefined;
+
+  // saving user with new credentials on DB
+  await user.save();
+
+  // optional things here
+  const token = user.getJWTToken();
+  res.cookie("token", token, cookieOptions);
+
+  // sending responce
+  res.status(200).json({
+    succes: true,
+    message: "Password reset successfully",
     user,
   });
 });

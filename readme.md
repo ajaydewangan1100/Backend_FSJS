@@ -269,9 +269,53 @@ export default asyncHandler;
 
 35. Work on routes -
 
-    > [goto - routes](src/routes)
+- > [goto - src/routes](src/routes)
+- > [goto - src/index.js](src/index.js)
+- > [goto - src/app.js](src/app.js)
 
-36. 
+36. Created coupon controller - create, get, getAll, update, delete
+
+> [goto - src/controllers/coupon.controller.js](src/controllers/coupon.controller.js)
+
+37. We need to use mailing services sometime - like mail for forgot password or order related mail(for that we need to test mail or debug email things on development time) - some services are here
+
+**Professinal services to use**
+
+- > aws (mailing services)
+- > mailchimp
+- > sendinblue
+
+**for testing mail services we can use**
+
+- > [goto - https://mailtrap.io/](https://mailtrap.io/) - (we are using this)
+
+**Module for nodejs application to send email**
+
+- > [goto - https://nodemailer.com/](https://nodemailer.com/)
+- > [goto - example](https://nodemailer.com/#example)
+
+38. Create mailHelper.js - (responsible for sending mail, creating it as universal service, whereever we need to send email just pass parameter and suit the email) -
+    _login on mailHelper and then use credentials given_
+
+    - > [goto - src/utils/mailHelper.js](src/utils/mailHelper.js)
+
+39. Updated config/index.js -
+
+> [goto - src/config/index.js](src/config/index.js)
+
+40. Created transporter for mailing service -
+
+    > [goto - transporter](src/config/transporter.config.js)
+
+41. created mailHelper - (for handle to all mailing things) -
+
+> [goto - src/utils/mailHelper.js](src/utils/mailHelper.js)
+
+42. Created forgotPassword controller - under auth.controller which will use this mailing service
+
+> [goto - src/controllers/auth.controller.js](src/controllers/auth.controller.js)
+
+43. 
 -
 -
 -
