@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       requiered: true,
     },
-    addres: {
+    address: {
       type: String,
       requiered: true,
     },
